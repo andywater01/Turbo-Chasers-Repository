@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 [RequireComponent(typeof(wheelsManager)) ]
 [RequireComponent(typeof(engineAudio)) ]
@@ -64,6 +65,11 @@ public class controller : MonoBehaviour{
     private bool grounded ;
     private bool engineLerp ;
 
+
+    public TextMeshProUGUI Speed;
+
+
+
     private void Start() {
         getObjects();
     }
@@ -75,6 +81,9 @@ public class controller : MonoBehaviour{
         
         friction();
         Audio();
+
+        UpdateUI();
+
         if(isAutomatic)
             shifter();
         else
@@ -357,31 +366,36 @@ public class controller : MonoBehaviour{
 
     private string s ;
  
-    void OnGUI(){
-        s = "";
-        foreach (float item in wheelSlip){
-            s +=  item.ToString("0.0") + " ";
-        }
-        float pos = 50;
+    //void OnGUI(){
+    //    s = "";
+    //    foreach (float item in wheelSlip){
+    //        s +=  item.ToString("0.0") + " ";
+    //    }
+    //    float pos = 50;
 
-        GUI.Label(new Rect(20, pos, 200, 20),"currentGear: " + gearNum.ToString("0"));
-        pos+=25f;
-        GUI.HorizontalSlider(new Rect(20, pos, 200, 20), engineRPM,0,maxRPM);
-        pos+=25f;
-        GUI.Label(new Rect(20, pos, 200, 20),"wheel slip: " + s);
-        pos+=25f;
-        GUI.Label(new Rect(20, pos, 200, 20),"Torque: " + totalPower.ToString("0"));
-        pos+=25f;
-        GUI.Label(new Rect(20, pos, 200, 20),"KPH: " + KPH.ToString("0"));
-        pos+=25f;
-        GUI.HorizontalSlider(new Rect(20, pos, 200, 20), engineLoad, 0.0F, 1.0F);
-        pos+=25f;
-        GUI.Label(new Rect(20, pos, 200, 20),"brakes: " + brakPower.ToString("0"));
-        pos+=25f;
-
-        
+    //    GUI.Label(new Rect(20, pos, 200, 20),"currentGear: " + gearNum.ToString("0"));
+    //    pos+=25f;
+    //    GUI.HorizontalSlider(new Rect(20, pos, 200, 20), engineRPM,0,maxRPM);
+    //    pos+=25f;
+    //    GUI.Label(new Rect(20, pos, 200, 20),"wheel slip: " + s);
+    //    pos+=25f;
+    //    GUI.Label(new Rect(20, pos, 200, 20),"Torque: " + totalPower.ToString("0"));
+    //    pos+=25f;
+    //    GUI.Label(new Rect(20, pos, 200, 20),"KPH: " + KPH.ToString("0"));
+    //    pos+=25f;
+    //    GUI.HorizontalSlider(new Rect(20, pos, 200, 20), engineLoad, 0.0F, 1.0F);
+    //    pos+=25f;
+    //    GUI.Label(new Rect(20, pos, 200, 20),"brakes: " + brakPower.ToString("0"));
+    //    pos+=25f;
 
         
+
+        
+    //}
+
+    void UpdateUI()
+    {
+        Speed.text = Mathf.RoundToInt(KPH).ToString();
     }
 
 }
